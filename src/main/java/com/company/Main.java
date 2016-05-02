@@ -3,15 +3,15 @@ package com.company;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class Main {
     private static final String DATABASE_DRIVER_CLASS_NAME = "org.postgresql.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/company";
     private static final String DATABASE_USER_NAME = "user";
     private static final String DATABASE_USER_PASSWORD = "1111";
+    private static final String SQL_QUERY_1 = "SELECT * FROM employee";
 
     private static final Logger LOGGER =  LoggerFactory.getLogger(Main.class);
 
@@ -19,8 +19,18 @@ public class Main {
         loadDriver();
         LOGGER.info("Connecting to DB");
         try(Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER_NAME,
-                DATABASE_USER_PASSWORD)) {
+                DATABASE_USER_PASSWORD); Statement statement = connection.createStatement()) {
             LOGGER.info("Successfully connected to DB ");
+            ResultSet resultSet = statement.executeQuery(SQL_QUERY_1);
+            while (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setId(resultSet.getInt("id"));
+                employee.setName(resultSet.getString("name"));
+                employee.setAge(resultSet.getInt("age"));
+                employee.setAddress(resultSet.getString("address"));
+                employee.setSalary(resultSet.getFloat("salary"));
+                employee.setJoinDate(LocalDateTime.from(resultSet.getDate("join_date").toLocalDate()));
+            }
 
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB: " + DATABASE_URL, e);
