@@ -3,6 +3,10 @@ package com.company;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main {
     private static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
 
@@ -10,6 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
         loadDriver();
+        try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/company")) {
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
