@@ -39,7 +39,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
         throw new RuntimeException(e);
     }
 
-    @Override public Employee load(int id) {
+    @Override
+    public Employee load(int id) {
         try (Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY_2)) {
             preparedStatement.setInt(1, id);
@@ -56,7 +57,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
         return null;
     }
 
-    @Override public List<Employee> getAll() {
+    @Override
+    public List<Employee> getAll() {
         List<Employee> result = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
