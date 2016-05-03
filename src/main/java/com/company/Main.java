@@ -29,7 +29,9 @@ public class Main {
                 employee.setAge(resultSet.getInt("age"));
                 employee.setAddress(resultSet.getString("address"));
                 employee.setSalary(resultSet.getFloat("salary"));
-                employee.setJoinDate(LocalDateTime.from(resultSet.getDate("join_date").toLocalDate()));
+                employee.setJoinDate(resultSet.getString("join_date"));
+
+                System.out.println(employee.toString());
             }
 
         } catch (SQLException e) {
