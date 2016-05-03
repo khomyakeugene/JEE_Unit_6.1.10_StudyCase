@@ -1,5 +1,7 @@
-package com.company.model.jdbc;
+package com.company.jdbc.model.jdbc;
 
+import com.company.jdbc.model.Employee;
+import com.company.jdbc.model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by Yevhen on 03.05.2016.
  */
-public class EmployeeDao {
+public class JdbcEmployeeDao implements EmployeeDao {
     private static final String CONNECT_DB_ERROR_PATTERN = "Exception occurred while connecting to DB: %s";
     private static final String CANNOT_FIND_EMPLOYEE_PATTERN = "Cannot find employee with id %d";
 
@@ -27,7 +29,7 @@ public class EmployeeDao {
     private String user = DATABASE_USER_NAME;
     private String password = DATABASE_USER_PASSWORD;
 
-    public EmployeeDao() {
+    public JdbcEmployeeDao() {
         loadDriver();
     }
 
@@ -37,7 +39,7 @@ public class EmployeeDao {
         throw new RuntimeException(e);
     }
 
-    public Employee load(int id) {
+    @Override public Employee load(int id) {
         try (Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY_2)) {
             preparedStatement.setInt(1, id);
@@ -54,7 +56,7 @@ public class EmployeeDao {
         return null;
     }
 
-    public List<Employee> getAll() {
+    @Override public List<Employee> getAll() {
         List<Employee> result = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
