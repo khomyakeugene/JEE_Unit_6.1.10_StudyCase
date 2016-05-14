@@ -4,13 +4,16 @@ import com.company.jdbc.model.jdbc.JdbcEmployeeDao;
 import com.company.jdbc.model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     private static final int TEST_EMPLOYEE_ID = 1;
-    private static final Logger LOGGER =  LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        EmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
+
+        EmployeeDao jdbcEmployeeDao = applicationContext.getBean("employeeDao", JdbcEmployeeDao.class);
 
         System.out.println("All employees");
         jdbcEmployeeDao.findAll().forEach(System.out::println);
