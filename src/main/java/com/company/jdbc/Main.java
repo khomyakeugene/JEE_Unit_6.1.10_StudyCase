@@ -13,7 +13,7 @@ public class Main {
         EmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
 
         System.out.println("All employees");
-        jdbcEmployeeDao.getAll().forEach(System.out::println);
+        jdbcEmployeeDao.findAll().forEach(System.out::println);
 
         System.out.println("Employee with id " + TEST_EMPLOYEE_ID);
         System.out.println(jdbcEmployeeDao.load(TEST_EMPLOYEE_ID));

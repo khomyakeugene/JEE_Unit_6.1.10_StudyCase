@@ -5,6 +5,7 @@ import com.company.jdbc.model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
     private String user = DATABASE_USER_NAME;
     private String password = DATABASE_USER_PASSWORD;
 
+    private DataSource dataSource;
+
     public JdbcEmployeeDao() {
         loadDriver();
     }
@@ -41,7 +44,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     @Override
     public Employee load(int id) {
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY_2)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,7 +61,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Employee> findAll() {
         List<Employee> result = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
