@@ -14,30 +14,18 @@ import java.util.List;
  * Created by Yevhen on 03.05.2016.
  */
 public class JdbcEmployeeDao implements EmployeeDao {
-    private static final String CONNECT_DB_ERROR_PATTERN = "Exception occurred while connecting to DB: %s";
+    private static final String CONNECT_DB_ERROR_PATTERN = "Exception occurred while connecting to DB";
     private static final String CANNOT_FIND_EMPLOYEE_PATTERN = "Cannot find employee with id %d";
 
-    private static final String DATABASE_DRIVER_CLASS_NAME = "org.postgresql.Driver";
-    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/company";
-    private static final String DATABASE_USER_NAME = "user";
-    private static final String DATABASE_USER_PASSWORD = "1111";
     private static final String SQL_QUERY_1 = "SELECT * FROM employee";
     private static final String SQL_QUERY_2 = "SELECT * FROM employee WHERE id = ?";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeDao.class);
 
-    private String url = DATABASE_URL;
-    private String user = DATABASE_USER_NAME;
-    private String password = DATABASE_USER_PASSWORD;
-
     private DataSource dataSource;
 
-    public JdbcEmployeeDao() {
-        loadDriver();
-    }
-
     private void databaseConnectError(Exception e) {
-        LOGGER.error(String.format(CONNECT_DB_ERROR_PATTERN, url), e);
+        LOGGER.error(CONNECT_DB_ERROR_PATTERN, e);
 
         throw new RuntimeException(e);
     }
@@ -64,7 +52,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public List<Employee> findAll() {
         List<Employee> result = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SQL_QUERY_1);
 
@@ -94,15 +82,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         return employee;
     }
 
-    private void loadDriver() {
-        try {
-            LOGGER.info("Loading JDBC driver: " + DATABASE_DRIVER_CLASS_NAME);
-            Class.forName(DATABASE_DRIVER_CLASS_NAME);
-            LOGGER.info("Driver loaded successfully");
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("Cannot find driver: " + DATABASE_DRIVER_CLASS_NAME, e);
-            throw new RuntimeException(e);
-        }
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
-
 }
