@@ -34,9 +34,9 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public Employee load(int id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY_2)) {
+
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
                 return createEmployee(resultSet);
             } else  {

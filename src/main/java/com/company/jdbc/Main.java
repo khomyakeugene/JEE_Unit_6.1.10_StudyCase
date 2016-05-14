@@ -17,8 +17,9 @@ public class Main {
 
         System.out.println("All employees");
         jdbcEmployeeDao.findAll().forEach(System.out::println);
-
+/*
         System.out.println("Employee with id " + TEST_EMPLOYEE_ID);
         System.out.println(jdbcEmployeeDao.load(TEST_EMPLOYEE_ID));
+        */
     }
 }
