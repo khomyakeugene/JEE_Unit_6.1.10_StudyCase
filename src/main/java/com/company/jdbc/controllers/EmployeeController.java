@@ -4,6 +4,8 @@ import com.company.jdbc.model.Employee;
 import com.company.jdbc.model.EmployeeDao;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
@@ -36,5 +38,10 @@ public class EmployeeController {
             txManager.rollback(status);
             throw new RuntimeException(e);
         }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Employee getEmployeeById(int id) {
+        return employeeDao.load(id);
     }
 }

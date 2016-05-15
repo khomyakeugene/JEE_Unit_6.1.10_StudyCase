@@ -4,6 +4,8 @@ import com.company.jdbc.model.Employee;
 import com.company.jdbc.model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -31,6 +33,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
+    @Transactional (propagation = Propagation.MANDATORY)
     public Employee load(int id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_QUERY_2)) {
@@ -49,6 +52,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
+    @Transactional (propagation = Propagation.MANDATORY)
     public List<Employee> findAll() {
         List<Employee> result = new ArrayList<>();
 
