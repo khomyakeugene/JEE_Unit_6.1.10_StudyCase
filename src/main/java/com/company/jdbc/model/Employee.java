@@ -1,7 +1,5 @@
 package com.company.jdbc.model;
 
-import java.time.LocalDateTime;
-
 /**
  * Created by Yevhen on 02.05.2016.
  */
