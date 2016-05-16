@@ -1,7 +1,5 @@
 package com.company.jdbc.model;
 
-import com.company.jdbc.model.Employee;
-
 import java.util.List;
 
 /**
