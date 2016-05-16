@@ -1,7 +1,7 @@
-package com.company.jdbc.controllers;
+package com.company.controllers;
 
-import com.company.jdbc.model.Employee;
-import com.company.jdbc.model.EmployeeDao;
+import com.company.model.Employee;
+import com.company.model.EmployeeDao;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;

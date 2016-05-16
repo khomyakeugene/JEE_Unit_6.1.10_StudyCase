@@ -1,4 +1,4 @@
-package com.company.jdbc.model;
+package com.company.model;
 
 import java.util.List;
 

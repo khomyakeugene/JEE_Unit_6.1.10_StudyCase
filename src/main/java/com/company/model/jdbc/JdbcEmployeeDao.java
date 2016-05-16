@@ -1,7 +1,7 @@
-package com.company.jdbc.model.jdbc;
+package com.company.model.jdbc;
 
-import com.company.jdbc.model.Employee;
-import com.company.jdbc.model.EmployeeDao;
+import com.company.model.Employee;
+import com.company.model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;

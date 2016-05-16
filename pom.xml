@@ -9,7 +9,7 @@
     <version>1.0</version>
 
     <properties>
-        <main.class>com.company.jdbc.Main</main.class>
+        <main.class>com.company.Main</main.class>
     </properties>
 
     <build>

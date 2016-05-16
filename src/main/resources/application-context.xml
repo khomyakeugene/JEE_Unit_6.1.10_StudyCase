@@ -7,11 +7,11 @@
 
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
-    <bean class="com.company.jdbc.Main" id="main">
+    <bean class="com.company.Main" id="main">
         <property name="employeeController" ref="employeeController"/>
     </bean>
 
-    <bean class="com.company.jdbc.model.jdbc.JdbcEmployeeDao" id="employeeDao">
+    <bean class="com.company.model.jdbc.JdbcEmployeeDao" id="employeeDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
@@ -25,7 +25,7 @@
         <property name="acquireIncrement" value="${jdc.acquire.increment}"/>
     </bean>
 
-    <bean class="com.company.jdbc.controllers.EmployeeController" id="employeeController">
+    <bean class="com.company.controllers.EmployeeController" id="employeeController">
         <property name="txManager" ref="txManager"/>
         <property name="employeeDao" ref="employeeDao"/>
     </bean>

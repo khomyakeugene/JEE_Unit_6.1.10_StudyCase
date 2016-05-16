@@ -1,6 +1,6 @@
-package com.company.jdbc;
+package com.company;
 
-import com.company.jdbc.controllers.EmployeeController;
+import com.company.controllers.EmployeeController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

@@ -1,4 +1,4 @@
-package com.company.jdbc.model;
+package com.company.model;
 
 /**
  * Created by Yevhen on 02.05.2016.
