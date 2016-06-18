@@ -27,7 +27,6 @@
     </bean>
 
     <bean class="com.company.controllers.EmployeeController" id="employeeController">
-        <property name="txManager" ref="txManager"/>
         <property name="employeeDao" ref="employeeDao"/>
     </bean>
 

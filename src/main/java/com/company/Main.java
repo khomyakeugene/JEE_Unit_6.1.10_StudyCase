@@ -18,7 +18,9 @@ public class Main {
     }
 
     private void start() {
-        // employeeController.getAllEmployees().forEach(System.out::println);
+        employeeController.getAllEmployees().forEach(System.out::println);
+
+        System.out.println("Employee with id = 1");
         System.out.println(employeeController.getEmployeeById(1));
     }
 

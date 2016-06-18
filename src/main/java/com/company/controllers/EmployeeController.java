@@ -16,29 +16,17 @@ import java.util.List;
  */
 public class EmployeeController {
 
-    private PlatformTransactionManager txManager;
     private EmployeeDao employeeDao;
-
-    public void setTxManager(PlatformTransactionManager txManager) {
-        this.txManager = txManager;
-    }
 
     public void setEmployeeDao(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<Employee> getAllEmployees() {
-        TransactionStatus status = txManager.getTransaction(new DefaultTransactionDefinition(
-                TransactionDefinition.PROPAGATION_REQUIRED));
-        try {
-            List<Employee> result = employeeDao.findAll();
-            txManager.commit(status);
+        List<Employee> result = employeeDao.findAll();
 
-            return result;
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw new RuntimeException(e);
-        }
+        return result;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

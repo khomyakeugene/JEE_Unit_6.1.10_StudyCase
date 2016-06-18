@@ -62,6 +62,7 @@
                         <argument>${project.build.finalName}</argument>
                     </arguments>
                     <mainClass>${main.class}</mainClass>
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
                 <executions>
                     <execution>
